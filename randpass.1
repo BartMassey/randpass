@@ -1,0 +1,42 @@
+.TH RANDPASS 2013-04-02 "Linux" "Linux Programmer's Manual"
+.SH NAME
+randpass \- random password generator
+.SH SYNOPSIS
+.B randpass
+.RI [ \-a ]
+.RI [ \-u ]
+.RI [ \-n\ count ]
+.SH DESCRIPTION
+This program is a random password generator for Linux
+systems.  When invoked, it produces a single
+randomly-generated password on standard output.
+By default, passwords may contain uppercase and lowercase
+ASCII letters, ASCII numerals, and ASCII punctuation
+characters.
+.SH OPTIONS
+.TP
+.I \-a
+Alphanumeric passwords only, omitting punctuation characters.
+.TP
+.I \-u
+By default,
+.I randpass
+will obtain a random number from
+.IR /dev/random .
+With this flag, it will instead use
+.IR /dev/urandom .
+This will theoretically decrease the security
+of the generated password, but will practically make
+it possible to invoke
+.I randpass
+many times in quick succession without it hanging until
+the random number generator's entropy pool refills.
+.TP
+.I \-n count
+Generate a password of length
+.IR count .
+.SH LICENSE
+This work is available under the "MIT License". Please see
+the file
+.I COPYING
+in this distribution for license terms.
