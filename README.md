@@ -1,4 +1,5 @@
 # randpass - random password generator
+Copyright © 2013 Bart Massey
 
 This is yet another one of the million bajillion random
 password generators out there. Mine is simple, is written in
