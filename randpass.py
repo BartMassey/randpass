@@ -59,11 +59,11 @@ nbytes = -(-nbits // 8)
 
 while True:
     bitpool = 0
-    for _ in range(nbytes):
+    bytestring = rf.read(nbytes)
+    assert bytestring != ''
+    for b in bytestring:
         bitpool <<= 8
-        ch = rf.read(1)
-        assert ch != ''
-        bitpool |= ord(ch)
+        bitpool |= b
     if bitpool < bitrange:
         break
 
