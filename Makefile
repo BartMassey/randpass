@@ -3,8 +3,8 @@
 # Please see the file COPYING in the source
 # distribution of this software for license terms.
 
-randpass: randpass.c
-	$(CC) $(CFLAGS) -o randpass randpass.c
+BINDIR = /usr/local/bin
 
-clean:
-	-rm -f randpass
+install: randpass.py
+	cp randpass.py $(BINDIR)/randpass
+	chmod 755 $(BINDIR)/randpass
