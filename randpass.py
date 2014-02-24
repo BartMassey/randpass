@@ -10,11 +10,12 @@
 from sys import argv
 
 def ilog2(n):
-    r = 0
+    """Return ceil(log2(n)) for non-negative integers n"""
+    result = 0
     while (n > 0):
         n //= 2
-        r += 1
-    return r
+        result += 1
+    return result
 
 alphanumeric_chars = \
   "abcdefghijklmnopqrstuvwxyz" + \
@@ -25,13 +26,14 @@ punctuation_chars = "!#$%^&*-;,./"
 
 pw_char_choices = alphanumeric_chars + punctuation_chars
 
-rf = None
-i = 1
+# Process arguments and set up.
+random_file = None
+i = 1   # argument index
 nchars = 8
 argc = len(argv)
 while argc > 1:
     if argv[i] == "-u":
-        rf = open("/dev/urandom", "rb")
+        random_file = open("/dev/urandom", "rb")
         i += 1
         argc -= 1
         continue
@@ -47,25 +49,28 @@ while argc > 1:
         argc -= 2
         continue
     assert False
-assert(argc == 1)
-if rf == None:
-    rf = open("/dev/random", "rb")
+assert argc == 1
+if random_file == None:
+    random_file = open("/dev/random", "rb")
 
+# Determine how many bytes to pull from /dev/random.
 npw_char_choices = len(pw_char_choices)
 bitrange = npw_char_choices ** nchars
 nbits = ilog2(bitrange)
 # http://stackoverflow.com/questions/14822184/
 nbytes = -(-nbits // 8)
 
+# Pull the bytes from /dev/random until in range.
 while True:
     bitpool = 0
-    bytestring = rf.read(nbytes)
+    bytestring = random_file.read(nbytes)
     for b in bytestring:
         bitpool <<= 8
         bitpool |= b
     if bitpool < bitrange:
         break
 
+# Print the password.
 for _ in range(nchars):
     ix = bitpool % npw_char_choices
     print(pw_char_choices[ix], end="")
