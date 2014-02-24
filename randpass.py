@@ -60,7 +60,6 @@ nbytes = -(-nbits // 8)
 while True:
     bitpool = 0
     bytestring = rf.read(nbytes)
-    assert bytestring != ''
     for b in bytestring:
         bitpool <<= 8
         bitpool |= b
