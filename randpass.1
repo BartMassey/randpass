@@ -16,7 +16,11 @@ systems.  When invoked, it produces a single
 randomly-generated password on standard output.
 By default, passwords may contain uppercase and lowercase
 ASCII letters, ASCII numerals, and ASCII punctuation
-characters.
+characters. The program uses the system random number
+generator
+.I /dev/random
+efficiently; extracting on average the minimum number of
+bytes required to generate the password.
 .SH OPTIONS
 .TP
 .I \-a
